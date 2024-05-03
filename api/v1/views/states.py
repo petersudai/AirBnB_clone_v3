@@ -3,7 +3,7 @@
 States view
 """
 from api.v1.views import app_views
-from flask import jsonify, request, abort
+from flask import jsonify, request, abort, make_response
 from models.state import State
 from models import storage
 
@@ -45,7 +45,7 @@ def create_state():
         abort(400, 'Missing name')
     state = State(**data)
     state.save()
-    return jsonify(state.to_dict()), 201
+    return make_response(jsonify(state.to_dict()), 201)
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
